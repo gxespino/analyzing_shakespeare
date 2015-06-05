@@ -1,0 +1,2 @@
+module MacbethAnalyzer 
+end
