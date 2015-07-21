@@ -8,22 +8,10 @@ class Parser
     @file = Nokogiri::XML(file)
   end
 
-  def speakers
-    file.search("SPEAKER").map(&:text)
-  end
-
-  def speeches
-    file.search("SPEECH").map(&:text)
-  end
-
-  def lines
-    file.search("LINE").map(&:text)
-  end
-
   def speakers_and_lines
-    file.search("SPEECH").map do |speech| 
-      speaker = speech.search("SPEAKER").text
-      lines = speech.search("LINE").map(&:text)
+    search_for(file, "SPEECH").map do |speech| 
+      speaker = search_for(speech, "SPEAKER").text
+      lines = search_for(speech, "LINE").map(&:text)
       { 
         speaker => lines
       }
@@ -31,9 +19,9 @@ class Parser
   end
 
   def speakers_and_line_counts
-    file.search("SPEECH").map do |speech| 
-      speaker = speech.search("SPEAKER").text
-      lines = speech.search("LINE").map(&:text)
+    search_for(file, "SPEECH").map do |speech| 
+      speaker = search_for(speech, "SPEAKER").text
+      lines = search_for(speech, "LINE").map(&:text)
       { 
         speaker => lines.count
       }
@@ -41,6 +29,12 @@ class Parser
   end
 
   def speaker_line_counts
-    speakers_and_line_counts.inject { |speaker, lines| speaker.merge(lines) { | x, val1, val2 | val1 + val2 }}
+    speakers_and_line_counts.inject { |speaker, lines| speaker.merge(lines) { | speaker, val1, val2 | val1 + val2 }}
+  end
+
+  private
+
+  def search_for(source, text)
+    source.search(text)
   end
 end

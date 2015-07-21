@@ -4,12 +4,6 @@ describe Parser do
   let(:sample_xml) { File.open("spec/fixtures/sample.xml") }
   let(:parser) { Parser.new(sample_xml) }
 
-  it "parses an xml file for all the speakers" do 
-    speakers = ["DUNCAN", "MALCOLM", "Sergeant", "DUNCAN"]
-
-    expect(parser.speakers).to eq speakers 
-  end
-
   it "parses an xml file for speakers and their lines" do 
     duncan_lines = { 
                      "DUNCAN" => [ "What bloody man is that? He can report,",
