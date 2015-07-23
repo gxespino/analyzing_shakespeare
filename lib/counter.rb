@@ -9,9 +9,13 @@ class Counter
     consolidate_lines[speaker].count
   end
 
-  private
-
   def consolidate_lines
-    parsed_hash.inject { |speaker, lines| speaker.merge(lines) { |speaker, val_1, val_2 | val_1 + val_2 }}
+    parsed_hash.inject { |speaker, lines| speaker.merge(lines) { |x, val_1, val_2 | val_1 + val_2 }}
+  end
+
+  def line_count_hash
+    consolidate_lines.map do |speaker, lines_array|
+      { speaker => consolidate_lines[speaker].count }
+    end
   end
 end
