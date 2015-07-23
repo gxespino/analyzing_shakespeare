@@ -18,20 +18,6 @@ class Parser
     end 
   end
 
-  def speakers_and_line_counts
-    search_for(file, "SPEECH").map do |speech| 
-      speaker = search_for(speech, "SPEAKER").text
-      lines = search_for(speech, "LINE").map(&:text)
-      { 
-        speaker => lines.count
-      }
-    end 
-  end
-
-  def speaker_line_counts
-    speakers_and_line_counts.inject { |speaker, lines| speaker.merge(lines) { | speaker, val1, val2 | val1 + val2 }}
-  end
-
   private
 
   def search_for(source, text)

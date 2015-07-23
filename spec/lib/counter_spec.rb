@@ -1,12 +1,16 @@
 require "spec_helper"
 
 describe Counter do 
-  it "counts the number of lines for a speaker"
+  let(:sample_xml) { File.open("spec/fixtures/sample.xml") }
+  let(:parser) { Parser.new(sample_xml) }
 
-  expect(counter.lines("DUNCAN")).to eq 6 
-  expect(counter.lines("MALCOLM")).to eq 5
+  it "counts the number of lines for a speaker" do
+    hashed = parser.speakers_and_lines
+
+    counter = Counter.new(hashed)
+
+    expect(counter.line_count("DUNCAN")).to eq 6 
+    expect(counter.line_count("MALCOLM")).to eq 5
+    expect(counter.line_count("Sergeant")).to eq 17
+  end
 end
-
-# "DUNCAN" => [ "What bloody man is that? He can report,",
-#               "As seemeth by his plight, of the revolt",
-#               "The newest state." ]

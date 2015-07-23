@@ -22,9 +22,4 @@ describe Parser do
     expect(parser.speakers_and_lines[0]).to eq duncan_lines
     expect(parser.speakers_and_lines[1]).to eq malcolm_lines
   end
-
-  it "parses an xml file for speakers and their total line count" do 
-    expect(parser.speaker_line_counts["DUNCAN"]).to eq 6
-    expect(parser.speaker_line_counts["MALCOLM"]).to eq 5
-  end
 end
