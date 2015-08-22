@@ -36,7 +36,6 @@ Tests are using RSpec and WebMock for the file download. A high level acceptance
 ## To do
 
 1. Refactor
-2. Add new tests to fix bug that occurs 1/10 times
-3. Rethink naming
-4. Add high level acceptance test 
+2. Rethink naming
+3. Add high level acceptance test 
 
