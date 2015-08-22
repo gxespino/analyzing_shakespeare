@@ -3,10 +3,14 @@ require "./lib/downloader"
 require "./lib/parser"
 require "./lib/counter"
 
-xml = Downloader.new.download
+if __FILE__ == $0
 
-hashed = Parser.new(xml).speakers_and_lines
+  xml = Downloader.new.download
 
-count = Counter.new(hashed).line_count_hash
+  hashed = Parser.new(xml).speakers_and_lines
 
-Analyzer.new(count).analyze
+  count = Counter.new(hashed).line_count_hash
+
+  Analyzer.new(count).analyze
+
+end

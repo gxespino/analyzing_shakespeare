@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'pry'
 
 class Parser
   attr_reader :file
@@ -9,13 +10,15 @@ class Parser
   end
 
   def speakers_and_lines
-    search_for(file, "SPEECH").map do |speech| 
-      speaker = search_for(speech, "SPEAKER").text
-      lines = search_for(speech, "LINE").map(&:text)
-      { 
-        speaker => lines
-      }
-    end 
+    search_for(file, "SPEECH").flat_map do |speech|
+      speakers = search_for(speech, "SPEAKER")
+      speakers.map do |speaker_element|
+        lines = search_for(speech, "LINE").map(&:text)
+          {
+            speaker_element.text => lines
+          }
+      end
+    end
   end
 
   private
